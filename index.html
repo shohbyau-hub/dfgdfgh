@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-Order NCT Dream Merchandise</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: green;
+    }
+    header {
+      background: #222;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    header img {
+      width: 80px;
+      height: auto;
+      display: block;
+      margin: 0 auto 10px;
+      border-radius: 50%;
+    }
+    .container {
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    .card {
+      background: rgb(160, 240, 12);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      width: 100%;
+      text-align: left;
+      border: none;
+      display: block;
+    }
+    .card:hover {
+      background: #f0f0f0;
+      transform: translateY(-3px);
+    }
+    h2 {
+      margin-top: 0;
+    }
+    form {
+      margin-top: 15px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+    button {
+      background: #222;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #444;
+    }
+    .back-btn {
+      margin-top: 15px;
+      background: #888;
+    }
+    .product-img {
+      width: 100%;
+      max-height: 250px;
+      object-fit: contain;
+      margin: 15px 0;
+      border-radius: 12px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="https://via.placeholder.com/80" alt="Logo Shinby.Hoonie">
+  <h1>Pre-Order Merchandise NCT Dream</h1>
+  <p>Pilih produk favoritmu & lakukan pre-order sekarang!</p>
+</header>
+
+<div class="container">
+
+  <!-- Beranda -->
+  <div id="home">
+    <button class="card" onclick="showProduct('keychain')">
+      <h2>🔑 Pre-Order Keychain NCT Dream</h2>
+      <p>Keychain lucu dengan karakter chibi NCT Dream.</p>
+    </button>
+    <button class="card" onclick="showProduct('idcard')">
+      <h2>💳 Pre-Order ID Card NCT Dream</h2>
+      <p>ID Card eksklusif dengan desain member NCT Dream.</p>
+    </button>
+    <button class="card" onclick="showProduct('cardholder')">
+      <h2>📂 Pre-Order Card Holder NCT Dream</h2>
+      <p>Card holder elegan dengan logo NCT Dream emboss.</p>
+    </button>
+  </div>
+
+  <!-- Halaman Produk -->
+  <div id="productPage" style="display:none;">
+    <h2 id="productTitle"></h2>
+    <img id="productImg" class="product-img" src="" alt="Produk NCT Dream">
+    <p id="productDesc"></p>
+    <p><strong id="productPrice"></strong></p>
+
+    <h3>Form Pre-Order untuk <span id="formProduct"></span></h3>
+    <form id="orderForm">
+      <label for="nama">Nama Lengkap</label>
+      <input type="text" id="nama" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" required>
+
+      <label for="jumlah">Jumlah Pesanan</label>
+      <input type="number" id="jumlah" min="1" value="1" required>
+
+      <label for="alamat">Alamat Lengkap</label>
+      <textarea id="alamat" rows="3" required></textarea>
+
+      <button type="submit">Kirim Pesanan via WhatsApp</button>
+    </form>
+
+    <button class="back-btn" onclick="goHome()">⬅ Kembali ke Beranda</button>
+  </div>
+</div>
+
+<script>
+  const products = {
+    keychain: {
+      title: "Keychain NCT Dream",
+      desc: "Bahan: Acrylic tebal dengan finishing glossy<br>Ukuran: 5 cm<br>Desain: Karakter chibi NCT Dream<br>Kelebihan: Ringan, awet, cocok untuk gantungan tas atau kunci",
+      price: "Harga: Rp25.000/pcs",
+      img: "https://via.placeholder.com/400x250?text=Keychain"
+    },
+    idcard: {
+      title: "ID Card NCT Dream",
+      desc: "Bahan: PVC premium dengan laminasi doff<br>Ukuran: Standar ID Card (8,5 x 5,4 cm)<br>Desain: Member NCT Dream dengan gaya eksklusif<br>Kelebihan: Tahan lama, warna tajam, bisa digunakan sebagai akses kartu atau koleksi",
+      price: "Harga: Rp30.000/pcs",
+      img: "https://via.placeholder.com/400x250?text=ID+Card"
+    },
+    cardholder: {
+      title: "Card Holder NCT Dream",
+      desc: "Bahan: Kulit sintetis berkualitas tinggi<br>Ukuran: 10 x 7 cm<br>Desain: Logo & karakter NCT Dream emboss elegan<br>Kelebihan: Muat banyak kartu, praktis dibawa, cocok untuk fans dan kolektor",
+      price: "Harga: Rp40.000/pcs",
+      img: "https://via.placeholder.com/400x250?text=Card+Holder"
+    }
+  };
+
+  let selectedProduct = "";
+
+  function showProduct(product) {
+    selectedProduct = product;
+    document.getElementById("home").style.display = "none";
+    document.getElementById("productPage").style.display = "block";
+
+    document.getElementById("productTitle").innerText = products[product].title;
+    document.getElementById("productDesc").innerHTML = products[product].desc;
+    document.getElementById("productPrice").innerText = products[product].price;
+    document.getElementById("formProduct").innerText = products[product].title;
+    document.getElementById("productImg").src = products[product].img;
+  }
+
+  function goHome() {
+    document.getElementById("productPage").style.display = "none";
+    document.getElementById("home").style.display = "block";
+  }
+
+  document.getElementById("orderForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let nama = document.getElementById("nama").value;
+    let email = document.getElementById("email").value;
+    let jumlah = document.getElementById("jumlah").value;
+    let alamat = document.getElementById("alamat").value;
+
+    let nomorWA = "6281234567890"; // ganti dengan nomor WA kamu
+    let pesan = `*Halo Admin*, saya ingin pre-order *${products[selectedProduct].title}*:%0A
+- Nama: ${nama}%0A
+- Email: ${email}%0A
+- Jumlah: ${jumlah}%0A
+- Alamat: ${alamat}`;
+
+    let url = `https://wa.me/${nomorWA}?text=${pesan}`;
+    window.open(url, "_blank");
+
+    document.getElementById("orderForm").reset();
+  });
+
+  window.onload = function() {
+    goHome();
+  };
+</script>
+
+</body>
+</html>
