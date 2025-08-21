@@ -195,14 +195,14 @@
     let jumlah = document.getElementById("jumlah").value;
     let alamat = document.getElementById("alamat").value;
 
-    let nomorWA = "089518118538"; // ganti dengan nomor WA kamu
+    let nomorWA = ""; // ganti dengan nomor WA kamu
     let pesan = `*Halo Admin*, saya ingin pre-order *${products[selectedProduct].title}*:%0A
 - Nama: ${nama}%0A
 - Email: ${email}%0A
 - Jumlah: ${jumlah}%0A
 - Alamat: ${alamat}`;
 
-    let url = `https://wa.me/${085173012721}?text=${pesan}`;
+    let url = `https://wa.me/${+62089518118538}?text=${pesan}`;
     window.open(url, "_blank");
 
     document.getElementById("orderForm").reset();
@@ -216,5 +216,6 @@
 </body>
 
 </html>
+
 
 
